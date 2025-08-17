@@ -57,6 +57,19 @@
       color: #28a745;
       font-size: 16px;
     }
+    .buy-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+    .buy-btn:hover {
+      background: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -102,13 +115,27 @@
             <h3>${p.name}</h3>
             <p>${p.description}</p>
             <strong>${p.price} Credit</strong>
+            <button class="buy-btn" onclick="buyProduct('${p.id}', '${p.name}', ${p.price})">Buy</button>
           </div>
         `;
       });
+    }
+
+    // دالة شراء Placeholder
+    function buyProduct(id, name, price) {
+      alert(`🛒 تم شراء المنتج: ${name} مقابل ${price} كريدت (تجريبي)`);
+      // هنا لاحقاً هنستبدل الـ alert بـ fetch لباك إند API
+      /*
+      fetch("https://rzrx-api.onrender.com/buy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_id: id, user_id: "123456" })
+      }).then(res => res.json())
+        .then(data => alert("تمت العملية: " + data.message));
+      */
     }
 
     loadProducts();
   </script>
 </body>
 </html>
-
