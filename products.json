@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "broadcast-pro",
+    "name": "Broadcast Pro",
+    "price": 500,
+    "image": "assets/broadcast.svg",
+    "description": "برودكاست بإدارة معدل الإرسال + تقارير وصول."
+  },
+  {
+    "slug": "tickets-suite",
+    "name": "Tickets Suite",
+    "price": 400,
+    "image": "assets/tickets.svg",
+    "description": "نظام تذاكر كامل + سجلات + تقييم بعد الإغلاق."
+  },
+  {
+    "slug": "smart-autoreply",
+    "name": "Smart Auto-Reply",
+    "price": 350,
+    "image": "assets/auto.svg",
+    "description": "ردود تلقائية بالكلمات المفتاحية + أزرار تفاعل."
+  },
+  {
+    "slug": "server-protector",
+    "name": "Server Protector",
+    "price": 450,
+    "image": "assets/protect.svg",
+    "description": "أنتي رايد + أنتي بوت + لوج للأحداث الحساسة."
+  }
+]
