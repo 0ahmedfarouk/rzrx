@@ -1,1 +1,0 @@
-(function(){const m=location.hash.match(/#token=([^&]+)/);if(m){localStorage.setItem('rzrx_token',m[1]);history.replaceState({},'',location.pathname+location.search)}})();
