@@ -1,0 +1,17 @@
+import { createClient } from '@supabase/supabase-js';
+const s = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE);
+export default async function h(req,res){
+  if(req.method!=='POST') return res.status(405).json({error:'Method not allowed'});
+  const auth=req.headers.authorization||''; const t=auth.replace('Bearer ','');
+  const expected=process.env.ADMIN_TOKEN;
+  if(!expected || (t!==`Bearer ${expected}` && t!==expected)) return res.status(401).json({error:'Unauthorized'});
+  const { user_id, delta } = req.body||{};
+  if(!user_id || typeof delta!=='number') return res.status(400).json({error:'Missing user_id or delta'});
+  const { data: user } = await s.from('users').select('id,credits').eq('id',user_id).single();
+  if(!user) return res.status(404).json({error:'User not found'});
+  const newCredits = Math.max(0, (user.credits||0)+delta);
+  const { error } = await s.from('users').update({ credits:newCredits }).eq('id',user_id);
+  if(error) return res.status(500).json({error:'Failed to update credits'});
+  await s.from('transactions').insert([{ user_id, product_id:null, amount: delta }]);
+  res.status(200).json({ ok:true, user_id, credits:newCredits });
+}

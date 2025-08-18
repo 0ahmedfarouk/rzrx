@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>RZRX — لوحة الأدمن</title>
+  <link rel="icon" href="./assets/favicon.svg"/>
+  <link rel="stylesheet" href="./assets/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="brand"><span class="logo"><img src="./assets/logo.svg" width="24" height="24" alt=""/></span> RZRX</div>
+      <div><a href="./index.html">الرئيسية</a> · <a href="./products.html">المتجر</a> · <a href="./dashboard.html">حسابي</a></div>
+    </nav>
+
+    <section class="card">
+      <h1>أوامر الأدمن</h1>
+      <p class="muted">لشحن/خصم رصيد مستخدم (يتطلب <code>ADMIN_TOKEN</code> على السيرفر).</p>
+      <label>Discord/User ID</label><input id="uid" placeholder="1234567890"/>
+      <label>المقدار (+/-)</label><input id="delta" type="number" value="100"/>
+      <label>Admin Token</label><input id="admint" placeholder="أدخل التوكن"/>
+      <button class="btn" id="go">تنفيذ</button>
+      <pre id="out" class="pre"></pre>
+    </section>
+
+    <footer class="footer">© <span id="y"></span> RZRX</footer>
+  </div>
+  <div class="toast"></div>
+
+  <script type="module">
+    import { adminCredit } from './js/api.js';
+    import './js/config.js';
+    import { toast } from './js/ui.js';
+
+    document.getElementById('go').onclick = async()=>{
+      const user_id = document.getElementById('uid').value.trim();
+      const delta   = Number(document.getElementById('delta').value || 0);
+      const token   = document.getElementById('admint').value.trim();
+      try{
+        const out = await adminCredit(user_id, delta, token);
+        toast('تم التحديث ✅');
+        document.getElementById('out').textContent = JSON.stringify(out, null, 2);
+      }catch(e){
+        toast(e.message || 'فشل العملية', 'err');
+      }
+    };
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
