@@ -1,0 +1,1 @@
+See env vars in project settings. Endpoints: /api, /api/products, /api/secure/buy, /api/admin/credit, /api/auth/discord/login, /api/auth/discord/callback, /api/auth/me

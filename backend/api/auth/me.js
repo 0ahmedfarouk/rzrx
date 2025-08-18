@@ -1,0 +1,1 @@
+import * as jose from 'jose';export default async function h(req,res){try{const t=(req.headers.authorization||'').replace('Bearer ','');if(!t)return res.status(401).json({error:'No token'});const {payload}=await jose.jwtVerify(t,new TextEncoder().encode(process.env.JWT_SECRET));res.status(200).json({ok:true,user:payload})}catch(e){res.status(401).json({error:'Invalid token'})}}

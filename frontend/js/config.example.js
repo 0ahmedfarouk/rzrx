@@ -1,0 +1,1 @@
+export const API_BASE = "https://YOUR_APP.vercel.app";
